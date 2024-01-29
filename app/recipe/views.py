@@ -16,7 +16,7 @@ from core.models import (
 from recipe import serializers
 
 
-class RecipeViewSest(viewsets.ModelViewSet):
+class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RecipeDetailSerializer
     queryset = Recipe.objects.all()
     authentication_classes = [TokenAuthentication]

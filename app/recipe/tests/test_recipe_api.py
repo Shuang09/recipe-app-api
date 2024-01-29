@@ -47,7 +47,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class publicRecipeAPITests(TestCase):
+class PublicRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
@@ -58,7 +58,7 @@ class publicRecipeAPITests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class privateRecipeAPITest(TestCase):
+class PrivateRecipeApiTest(TestCase):
 
     def setUp(self):
         self.client = APIClient()
@@ -77,10 +77,7 @@ class privateRecipeAPITest(TestCase):
         self.assertEqual(res.data, serializer.data)
 
     def test_recipe_list_limited_to_user(self):
-        other_user = create_user(
-            email='other@example.com',
-            password='password123'
-        )
+        other_user = create_user(email='other@example.com',password='password123')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -192,7 +189,7 @@ class privateRecipeAPITest(TestCase):
         payload = {
             'title': 'Pad Thai',
             'time_minutes': 30,
-            "price": Decimal('2.50'),
+            'price': Decimal('2.50'),
             'tags': [{'name': 'Thai'}, {'name': 'Dinner'}]
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
