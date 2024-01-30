@@ -12,6 +12,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
+
 def recipe_image_file_path(instance, filename):
     ext = os.path.splitext(filename)[1]
     filename = f'{uuid.uuid4()}{ext}'
@@ -64,7 +65,7 @@ class Recipe(models.Model):
     link = models.CharField(max_length=255, blank=True)
     tags = models.ManyToManyField('Tag')
     ingredients = models.ManyToManyField('Ingredient')
-    image = models.ImageField(blank=True, upload_to=recipe_image_file_path)
+    image = models.ImageField(null=True, upload_to=recipe_image_file_path)
 
     def __str__(self):
         return self.title
